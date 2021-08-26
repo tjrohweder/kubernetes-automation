@@ -6,6 +6,8 @@
     state: present
 
 - name: User - Create user for Kubernetes and Docker administration
+  become: yes
+  become_method: "sudo" 
   user:
     name: "{{ k8s_admin }}"
     shell: /bin/bash

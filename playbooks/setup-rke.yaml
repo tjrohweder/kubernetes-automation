@@ -1,0 +1,16 @@
+- hosts: bastion
+  gather_facts: no
+  remote_user: "{{ k8s_admin }}"
+  become: false
+  tasks:
+    - name: Run rke up to install kubernetes
+      shell: "/usr/bin/rke up --config /{{ config_dir }}/rke/cluster.yml"
+    - name: Copy configuration from master to local
+      fetch:
+        src: "/{{ config_dir }}/rke/{{ item }}"
+        dest: /tmp/
+        flat: yes 
+      with_items:
+        - cluster.rkestate
+        - cluster.yml
+        - kube_config_cluster.yml
