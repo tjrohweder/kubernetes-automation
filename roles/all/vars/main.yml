@@ -1,2 +1,6 @@
 ---
-# vars file for all
+systemd_conf_dir: /etc/systemd/system
+systemd_dir: /lib/systemd/system
+system_env_dir: /etc/sysconfig
+config_dir: "opt/k8s/config"
+k8s_admin: "svc_local_k8s"

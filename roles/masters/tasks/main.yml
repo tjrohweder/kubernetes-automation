@@ -15,8 +15,8 @@
     path: "/{{ config_dir }}/rke"
     state: directory
     mode: '7777'
-    owner: {{ k8s_admin }}
-    group: {{ k8s_admin }}
+    owner: "{{ k8s_admin }}"
+    group: "{{ k8s_admin }}"
   tags:
     - on-premise
     - master
@@ -46,10 +46,10 @@
 - name: kubectl - Create config directory
   become: true
   file:
-    path: "/home/osgt/.kube"
+    path: "/home/{{ k8s_admin }}/.kube"
     state: directory
-    owner: {{ k8s_admin }}
-    group: {{ k8s_admin }}
+    owner: "{{ k8s_admin }}"
+    group: "{{ k8s_admin }}"
   tags:
     - on-premise
     - master

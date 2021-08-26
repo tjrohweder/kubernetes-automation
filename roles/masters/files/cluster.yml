@@ -20,7 +20,7 @@ nodes:
     role:
     - worker
     hostname_override: ""
-    user: osgt
+    user: "{{ k8s_admin }}"
     docker_socket: /var/run/docker.sock
     ssh_key: ""
     ssh_key_path: ~/.ssh/id_rsa
@@ -29,6 +29,7 @@ nodes:
     labels:
        minio: "true"
     taints: []
+
 services:
   etcd:
     image: ""

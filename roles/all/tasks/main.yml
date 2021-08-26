@@ -2,12 +2,12 @@
 
 - name: User - Create group for Kubernetes and Docker administration
   group:
-    name: {{ k8s_admin }}
+    name: "{{ k8s_admin }}"
     state: present
 
 - name: User - Create user for Kubernetes and Docker administration
   user:
-    name: {{ k8s_admin }}
+    name: "{{ k8s_admin }}"
     shell: /bin/bash
     groups: docker
     append: yes
@@ -111,11 +111,6 @@
     group: root
     mode: 0755
   notify: "Restart docker"
-
-- name: Copy Docker environment config file
-  template: 
-    src: docker.j2 
-    dest: '{{ system_env_dir }}/docker'
 
 - name: Enable and check Docker service
   systemd:
