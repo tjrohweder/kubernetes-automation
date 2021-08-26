@@ -1,0 +1,81 @@
+---
+
+- name: User - Create group for Kubernetes and Docker administration
+  group:
+    name: {{ k8s_admin }}
+    state: present
+
+- name: User - Create user for Kubernetes and Docker administration
+  user:
+    name: {{ k8s_admin }}
+    shell: /bin/bash
+    groups: docker
+    append: yes
+
+- name: rke - download and install rke 
+  get_url: 
+    url: https://github.com/rancher/rke/releases/download/v1.2.11/rke_linux-amd64
+    dest: /usr/bin/rke
+    mode: u=rwx,g=rx,o=rx
+    force: true
+  tags:
+    - on-premise
+    - master
+
+- name: rke - Create config directory
+  become: true
+  file:
+    path: "/{{ config_dir }}/rke"
+    state: directory
+    mode: '7777'
+    owner: {{ k8s_admin }}
+    group: {{ k8s_admin }}
+  tags:
+    - on-premise
+    - master
+
+- name: rke - Send configuration files to remote destination
+  copy:
+    src: "{{ item }}"
+    dest: "/{{ config_dir }}/rke/{{ item }}"
+    mode: u=rw,g=r,o=r
+    backup: yes
+  with_items:
+    - cluster.yml    
+  tags:
+    - on-premise
+    - master
+
+- name: kubectl - download and install kubectl
+  get_url: 
+    url: https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl
+    dest: /usr/bin/kubectl
+    mode: u=rwx,g=rx,o=rx
+    force: true
+  tags:
+    - on-premise
+    - master
+
+- name: kubectl - Create config directory
+  become: true
+  file:
+    path: "/home/osgt/.kube"
+    state: directory
+    owner: {{ k8s_admin }}
+    group: {{ k8s_admin }}
+  tags:
+    - on-premise
+    - master
+
+- name: Download and extract Helm
+  become: true
+  unarchive: 
+    src: "https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz" 
+    dest: "/usr/bin/" 
+    mode: "0755" 
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  register: helm
+  tags:
+    - on-premise
+    - master

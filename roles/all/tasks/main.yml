@@ -1,0 +1,114 @@
+---
+
+- name: Disable system swap
+  shell: "swapoff -a"
+
+- name: Remove current swaps from fstab
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '(?i)^([^#][\S]+\s+(none|swap)\s+swap.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+
+- name: Load kernel modules
+  modprobe:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - br_netfilter
+    - ip6_udp_tunnel
+    - ip_set
+    - ip_set_hash_ip
+    - ip_set_hash_net
+    - iptable_filter
+    - iptable_nat
+    - iptable_mangle
+    - iptable_raw
+    - nf_conntrack_netlink
+    - nf_conntrack
+    - nf_defrag_ipv4
+    - nf_nat
+    - nfnetlink
+    - udp_tunnel
+    - veth
+    - vxlan
+    - x_tables
+    - xt_addrtype
+    - xt_conntrack
+    - xt_comment
+    - xt_mark
+    - xt_multiport
+    - xt_nat
+    - xt_recent
+    - xt_set
+    - xt_statistic
+    - xt_tcpudp
+
+- name: Disable swappiness and pass bridged IPv4 traffic to iptable's chains
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+    reload: yes
+  with_items:
+    - { name: 'vm.swappiness', value: '0' }
+    - { name: 'net.bridge.bridge-nf-call-iptables', value: '1' }
+
+- name: Install commmon libraries
+  yum:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - wget
+    - logrotate
+    - telnet
+    - python3
+    - lvm2
+    - iscsi-initiator-utils
+
+- name: Create data directory
+  file:
+    path: "/data/docker"
+    state: directory
+    mode: '7777'
+
+- name: Install Docker
+  shell: curl https://releases.rancher.com/install-docker/20.10.sh | sudo bash -
+  become: yes
+  args:
+    creates: /usr/bin/docker
+    warn: no
+
+- name: Copy Docker engine service file
+  register: change_docker
+  template:
+    src: "docker.service.j2"
+    dest: "{{ systemd_dir }}/docker.service"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Docker configurations
+  register: change_docker
+  template:
+    src: "daemon.j2"
+    dest: "/etc/docker/daemon.json"
+    owner: root
+    group: root
+    mode: 0755
+  notify: "Restart docker"
+
+- name: Copy Docker environment config file
+  template: 
+    src: docker.j2 
+    dest: '{{ system_env_dir }}/docker'
+
+- name: Enable and check Docker service
+  systemd:
+    name: docker
+    daemon_reload: yes
+    state: started
+    enabled: yes
+  register: started_docker
