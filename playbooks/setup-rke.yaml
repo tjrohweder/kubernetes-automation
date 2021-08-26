@@ -3,6 +3,12 @@
   remote_user: "{{ k8s_admin }}"
   become: false
   tasks:
+    - name: rke - download and install rke 
+      get_url: 
+        url: https://github.com/rancher/rke/releases/download/v1.2.11/rke_linux-amd64
+        dest: /usr/bin/rke
+        mode: u=rwx,g=rx,o=rx
+        force: true
     - name: Run rke up to install kubernetes
       shell: "/usr/bin/rke up --config /{{ config_dir }}/rke/cluster.yml"
     - name: Copy configuration from master to local
