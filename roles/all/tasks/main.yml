@@ -102,15 +102,6 @@
     group: root
     mode: 0755
 
-- name: Copy Docker engine service file
-  register: change_docker
-  template:
-    src: "docker.service.j2"
-    dest: "{{ systemd_dir }}/docker.service"
-    owner: root
-    group: root
-    mode: 0755
-
 - name: Docker configurations
   register: change_docker
   template:
