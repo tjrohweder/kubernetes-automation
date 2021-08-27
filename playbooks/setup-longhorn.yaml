@@ -1,0 +1,14 @@
+- name: Longhorn - Send configuration files to remote destination
+  copy:
+    src: "files/{{ config_dir }}/longhorn"
+    dest: "/{{ config_dir }}/"
+    mode: u=rw,g=r,o=r
+  tags:
+    - on-premise
+    - longhorn
+
+- name: Longhorn - Installing Longhorn
+  shell: helm upgrade --install longhorn -f /{{ config_dir }}/longhorn/values.yaml --namespace longhorn-system longhorn/longhorn
+  tags:
+    - on-premise
+    - longhorn

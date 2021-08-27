@@ -2,3 +2,6 @@
   - import_playbook: setup-all.yaml
   - import_playbook: setup-master.yaml
   - import_playbook: setup-rke.yaml
+  - import_playbook: setup-rke.yaml
+  - import_playbook: setup-longhorn.yaml
+  - import_playbook: setup-istio.yaml

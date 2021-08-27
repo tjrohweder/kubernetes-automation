@@ -1,0 +1,20 @@
+- name: Istio - Send configuration files to remote destination
+  copy:
+    src: "files/{{ config_dir }}/istio"
+    dest: "/{{ config_dir }}/"
+    mode: u=rw,g=r,o=r
+  tags:
+    - on-premise
+    - istio
+
+- name: Istio - Installing Istio Base chart
+  shell: helm upgrade --install istio-base /{{ config_dir }}/istio/manifests/charts/base --namespace istio-system
+  tags:
+    - on-premise
+    - istio
+
+- name: Istio - Installing Istio Discovery chart
+  shell: helm upgrade --install istiod /{{ config_dir }}/istio/manifests/charts/istio-control/istio-discovery --namespace istio-system
+  tags:
+    - on-premise
+    - istio
