@@ -15,7 +15,7 @@
         - namespaces
 
     - name: Namespaces - Creating required namespaces
-      shell: kubectl apply -f /{{ config_dir }}/{{ item }}.yaml 
+      shell: kubectl apply -f /{{ config_dir }}/{{ item }}.yaml
       with_items:
         - namespaces
       tags:
