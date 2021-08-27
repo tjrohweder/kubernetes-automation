@@ -1,0 +1,19 @@
+- hosts: masters[0]
+  remote_user: "centos"
+  vars:
+    config_dir: "opt/k8s/config"
+  tasks:
+    - name: metallb - Send configuration files to remote destination
+      copy:
+        src: "files/metallb"
+        dest: "/{{ config_dir }}/"
+        mode: u=rw,g=r,o=r
+      tags:
+        - on-premise
+        - metallb
+    
+    - name: metallb - Installing metallb
+      shell: helm upgrade --install metallb -f /{{ config_dir }}/metallb/values.yaml --namespace metallb metallb/metallb
+      tags:
+        - on-premise
+        - metallb
