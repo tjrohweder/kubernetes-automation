@@ -1,35 +1,77 @@
-nodes:  
-  - address: 172.31.4.104
+nodes:
+  - address: 172.31.17.98
     port: 22
-    internal_address: ""  
+    internal_address: ""
     role:
     - controlplane
     - etcd
     hostname_override: ""
-    user: user
     docker_socket: /var/run/docker.sock
-    ssh_key: ""
-    ssh_key_path: ~/.ssh/id_rsa
+    user: centos
+    ssh_agent_auth: true
+    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
     ssh_cert: ""
     ssh_cert_path: ""
     labels: {}
-    taints: []  
-  - address: 172.31.81.237
+    taints: []
+  - address: 172.31.30.199
     port: 22
-    internal_address: ""  
+    internal_address: ""
+    role:
+    - controlplane
+    - etcd
+    hostname_override: ""
+    docker_socket: /var/run/docker.sock
+    user: centos
+    ssh_agent_auth: true
+    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_cert: ""
+    ssh_cert_path: ""
+    labels: {}
+    taints: []
+  - address: 172.31.29.206
+    port: 22
+    internal_address: ""
+    role:
+    - controlplane
+    - etcd
+    hostname_override: ""
+    docker_socket: /var/run/docker.sock
+    user: centos
+    ssh_agent_auth: true
+    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_cert: ""
+    ssh_cert_path: ""
+    labels: {}
+    taints: []
+  - address: 172.31.22.121
+    port: 22
+    internal_address: ""
     role:
     - worker
     hostname_override: ""
-    user: "{{ k8s_admin }}"
     docker_socket: /var/run/docker.sock
+    user: centos
     ssh_key: ""
-    ssh_key_path: ~/.ssh/id_rsa
+    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_agent_auth: true
     ssh_cert: ""
     ssh_cert_path: ""
-    labels:
-       minio: "true"
     taints: []
-
+  - address: 172.31.17.80
+    port: 22
+    internal_address: ""
+    role:
+    - worker
+    hostname_override: ""
+    docker_socket: /var/run/docker.sock
+    user: centos
+    ssh_key: ""
+    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_agent_auth: true
+    ssh_cert: ""
+    ssh_cert_path: ""
+    taints: []
 services:
   etcd:
     image: ""
