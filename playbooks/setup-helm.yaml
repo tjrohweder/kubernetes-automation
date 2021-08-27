@@ -8,12 +8,6 @@
         - on-premise
         - helm
 
-    - name: Add MetalLB helm repository
-      shell: helm repo add metallb https://metallb.github.io/metallb
-      tags:
-        - on-premise
-        - helm
-
     - name: Add stable helm repository
       shell: helm repo add stable https://charts.helm.sh/stable
       tags:

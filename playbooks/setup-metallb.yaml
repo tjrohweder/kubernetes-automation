@@ -13,7 +13,7 @@
         - metallb
     
     - name: metallb - Installing metallb
-      shell: helm upgrade --install metallb -f /{{ config_dir }}/metallb/values.yaml --namespace metallb metallb/metallb
+      shell: helm upgrade --install metallb -f /{{ config_dir }}/metallb/values.yaml --namespace metallb stable/metallb
       tags:
         - on-premise
         - metallb
