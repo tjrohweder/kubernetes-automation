@@ -14,3 +14,10 @@
         - cluster.rkestate
         - cluster.yml
         - kube_config_cluster.yml
+    - name: Create a symbolic link for kubectl config
+      file:
+        src: "/{{ config_dir }}/rke/kube_config_cluster.yml"
+        dest: /home/centos/.kube/config
+        owner: centos
+        group: centos
+        state: link
