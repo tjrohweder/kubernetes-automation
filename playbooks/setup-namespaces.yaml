@@ -1,17 +1,16 @@
 - hosts: masters[0]
   remote_user: "centos"
-  become: false
   vars:
     config_dir: "opt/k8s/config"
-
-  - name: Send configuration templates to remote destination
-    template:
-      src: "files/{{ item }}.yaml"
-      dest: "/{{ config_dir }}/{{ item }}.yaml"
-      mode: u=rw,g=r,o=r
-    with_items:
-      - namespaces
-    tags:
-      - on-premise
-      - namespaces
+  tasks:
+    - name: Send configuration templates to remote destination
+      template:
+        src: "files/{{ item }}.yaml"
+        dest: "/{{ config_dir }}/{{ item }}.yaml"
+        mode: u=rw,g=r,o=r
+      with_items:
+        - namespaces
+      tags:
+        - on-premise
+        - namespaces
 

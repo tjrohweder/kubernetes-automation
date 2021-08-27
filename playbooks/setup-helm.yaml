@@ -1,21 +1,21 @@
 ---
 - hosts: masters[0]
   remote_user: "centos"
-  become: false
-  - name: Add Longhorn helm repository
-    shell: helm repo add longhorn https://charts.longhorn.io
-    tags:
-      - on-premise
-      - master
-  
-  - name: Add stable helm repository
-    shell: helm repo add stable https://charts.helm.sh/stable
-    tags:
-      - on-premise
-      - master
-  
-  - name: Update Helm local repository
-    shell: helm repo update
-    tags:
-      - on-premise
-      - master
+  tasks:
+    - name: Add Longhorn helm repository
+      shell: helm repo add longhorn https://charts.longhorn.io
+      tags:
+        - on-premise
+        - master
+    
+    - name: Add stable helm repository
+      shell: helm repo add stable https://charts.helm.sh/stable
+      tags:
+        - on-premise
+        - master
+    
+    - name: Update Helm local repository
+      shell: helm repo update
+      tags:
+        - on-premise
+        - master

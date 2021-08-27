@@ -1,25 +1,25 @@
 - hosts: masters[0]
   remote_user: "centos"
-  become: false
   vars:
     config_dir: "opt/k8s/config"
-  - name: Istio - Send configuration files to remote destination
-    copy:
-      src: "files/istio"
-      dest: "/{{ config_dir }}/"
-      mode: u=rw,g=r,o=r
-    tags:
-      - on-premise
-      - istio
-  
-  - name: Istio - Installing Istio Base chart
-    shell: helm upgrade --install istio-base /{{ config_dir }}/istio/manifests/charts/base --namespace istio-system
-    tags:
-      - on-premise
-      - istio
-  
-  - name: Istio - Installing Istio Discovery chart
-    shell: helm upgrade --install istiod /{{ config_dir }}/istio/manifests/charts/istio-control/istio-discovery --namespace istio-system
-    tags:
-      - on-premise
-      - istio
+  tasks:
+    - name: Istio - Send configuration files to remote destination
+      copy:
+        src: "files/istio"
+        dest: "/{{ config_dir }}/"
+        mode: u=rw,g=r,o=r
+      tags:
+        - on-premise
+        - istio
+    
+    - name: Istio - Installing Istio Base chart
+      shell: helm upgrade --install istio-base /{{ config_dir }}/istio/manifests/charts/base --namespace istio-system
+      tags:
+        - on-premise
+        - istio
+    
+    - name: Istio - Installing Istio Discovery chart
+      shell: helm upgrade --install istiod /{{ config_dir }}/istio/manifests/charts/istio-control/istio-discovery --namespace istio-system
+      tags:
+        - on-premise
+        - istio

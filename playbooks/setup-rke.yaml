@@ -1,6 +1,7 @@
 - hosts: masters[0]
   remote_user: "centos"
-  become: false
+  vars:
+    config_dir: "opt/k8s/config"
   tasks:
     - name: Run rke up to install kubernetes
       shell: "/usr/bin/rke up --config /{{ config_dir }}/rke/cluster.yml"
