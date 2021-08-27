@@ -98,6 +98,8 @@ services:
     image: ""
     extra_args:
       v: 10
+      default-not-ready-toleration-seconds: 10
+      default-unreachable-toleration-seconds: 10
     extra_binds: []
     extra_env: []
     win_extra_args: {}
@@ -107,13 +109,19 @@ services:
     service_node_port_range: "30000-32767"
     pod_security_policy: false
     always_pull_images: false
-    secrets_encryption_config: null
+    secrets_encryption_config:
+      enabled: true
     audit_log: null
     admission_configuration: null
     event_rate_limit: null
   kube-controller:
     image: ""
-    extra_args: {}
+    extra_args:
+      pod-eviction-timeout: 30s
+      node-monitor-grace-period: 20s
+      horizontal-pod-autoscaler-downscale-delay: "10m0s"
+      horizontal-pod-autoscaler-upscale-delay: "5m0s"
+      horizontal-pod-autoscaler-sync-period: "5s"
     extra_binds: []
     extra_env: []
     win_extra_args: {}
@@ -133,6 +141,7 @@ services:
     image: ""
     extra_args:
       read-only-port: 10255
+      node-status-update-frequency: 2s
     extra_binds: []
     extra_env: []
     win_extra_args: {}
