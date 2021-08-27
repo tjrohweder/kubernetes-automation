@@ -1,0 +1,16 @@
+---
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: istio-system
+  labels:
+    name: istio-system
+---
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: longhorn-system
+  labels:
+    name: longhorn-system

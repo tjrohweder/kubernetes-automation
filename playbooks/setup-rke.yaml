@@ -1,5 +1,4 @@
 - hosts: masters[0]
-  gather_facts: no
   remote_user: "centos"
   become: false
   tasks:
