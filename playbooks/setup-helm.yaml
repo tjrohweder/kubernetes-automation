@@ -20,6 +20,12 @@
         - on-premise
         - helm
 
+    - name: Add Vault helm repository
+      shell: helm repo add wso2 https://helm.wso2.com
+      tags:
+        - on-premise
+        - helm
+
     - name: Add stable helm repository
       shell: helm repo add stable https://charts.helm.sh/stable
       tags:
