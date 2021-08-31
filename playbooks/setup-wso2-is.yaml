@@ -1,0 +1,19 @@
+- hosts: masters[0]
+  remote_user: "centos"
+  vars:
+    config_dir: "opt/k8s/config"
+  tasks:
+    - name: WSO2-IS - Send configuration files to remote destination
+      copy:
+        src: "files/wso2-is"
+        dest: "/{{ config_dir }}/"
+        mode: u=rw,g=r,o=r
+      tags:
+        - on-premise
+        - wso2
+    
+    - name: WSO2 IS - Installing wso2-is
+      shell: helm upgrade --install wso2-is -f /{{ config_dir }}/wso2-is/ --namespace wso2-is wso2/is-pattern-1
+      tags:
+        - on-premise
+        - wso2

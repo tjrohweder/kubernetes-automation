@@ -22,3 +22,21 @@ metadata:
   name: metallb
   labels:
     name: metallb
+
+---
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: wso2-is
+  labels:
+    name: wso2-is
+
+---
+
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: wso2-apim
+  labels:
+    name: wso2-apim

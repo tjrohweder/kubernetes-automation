@@ -7,3 +7,4 @@
   - import_playbook: setup-longhorn.yaml
   - import_playbook: setup-istio.yaml
   - import_playbook: setup-metallb.yaml
+  - import_playbook: setup-wso2-is.yaml
