@@ -1,5 +1,5 @@
 - hosts: masters[0]
-  remote_user: "centos"
+  remote_user: "svc_local_rke"
   vars:
     config_dir: "opt/k8s/config"
   tasks:

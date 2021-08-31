@@ -5,16 +5,11 @@
     name: "docker"
     state: present
 
-- name: User - Create group for Kubernetes and Docker administration
-  group:
-    name: "{{ k8s_admin }}"
-    state: present
-
 - name: User - Ensure admin user has access to docker group
   become: yes
   become_method: "sudo" 
   user:
-    name: "centos"
+    name: "{{ k8s_admin }}"
     shell: /bin/bash
     groups: docker
     append: yes

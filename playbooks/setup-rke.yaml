@@ -1,5 +1,5 @@
 - hosts: masters[0]
-  remote_user: "centos"
+  remote_user: "svc_local_rke"
   vars:
     config_dir: "opt/k8s/config"
   tasks:
@@ -17,7 +17,7 @@
     - name: Create a symbolic link for kubectl config
       file:
         src: "/{{ config_dir }}/rke/kube_config_cluster.yml"
-        dest: /home/centos/.kube/config
-        owner: centos
-        group: centos
+        dest: /home/svc_local_rke/.kube/config
+        owner: svc_local_rke
+        group: svc_local_rke
         state: link

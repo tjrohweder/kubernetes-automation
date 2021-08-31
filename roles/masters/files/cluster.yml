@@ -7,9 +7,9 @@ nodes:
     - etcd
     hostname_override: ""
     docker_socket: /var/run/docker.sock
-    user: centos
+    user: svc_local_rke
     ssh_agent_auth: true
-    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_key_path: /home/svc_local_rke/.ssh/tjrohweder.pem
     ssh_cert: ""
     ssh_cert_path: ""
     labels: {}
@@ -22,9 +22,9 @@ nodes:
     - etcd
     hostname_override: ""
     docker_socket: /var/run/docker.sock
-    user: centos
+    user: svc_local_rke
     ssh_agent_auth: true
-    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_key_path: /home/svc_local_rke/.ssh/tjrohweder.pem
     ssh_cert: ""
     ssh_cert_path: ""
     labels: {}
@@ -37,9 +37,9 @@ nodes:
     - etcd
     hostname_override: ""
     docker_socket: /var/run/docker.sock
-    user: centos
+    user: svc_local_rke
     ssh_agent_auth: true
-    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_key_path: /home/svc_local_rke/.ssh/tjrohweder.pem
     ssh_cert: ""
     ssh_cert_path: ""
     labels: {}
@@ -51,9 +51,9 @@ nodes:
     - worker
     hostname_override: ""
     docker_socket: /var/run/docker.sock
-    user: centos
+    user: svc_local_rke
     ssh_key: ""
-    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_key_path: /home/svc_local_rke/.ssh/tjrohweder.pem
     ssh_agent_auth: true
     ssh_cert: ""
     ssh_cert_path: ""
@@ -65,9 +65,9 @@ nodes:
     - worker
     hostname_override: ""
     docker_socket: /var/run/docker.sock
-    user: centos
+    user: svc_local_rke
     ssh_key: ""
-    ssh_key_path: /home/centos/.ssh/tjrohweder.pem
+    ssh_key_path: /home/svc_local_rke/.ssh/tjrohweder.pem
     ssh_agent_auth: true
     ssh_cert: ""
     ssh_cert_path: ""
