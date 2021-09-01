@@ -26,6 +26,7 @@
     src: "{{ item }}"
     dest: "/{{ config_dir }}/rke/{{ item }}"
     mode: u=rw,g=r,o=r
+    owner: "{{ k8s_admin }}"
     backup: yes
   with_items:
     - cluster.yml    
